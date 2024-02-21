@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('est_civil');
+            $table->foreignId('estado_civil_id');
+            $table->foreignId('user_id');
+            $table->unsignedBigInteger('legajo')->nullable()->unique();
             $table->string('nombre',50);
             $table->string('apellido',50);
             $table->string('email')->unique();
@@ -24,17 +26,17 @@ return new class extends Migration
             $table->string('fecha_nacimiento'); 
             $table->string('dni');
             $table->string('cuil'); 
-            $table->string('sexo'); 
-            $table->string('nacionalidad');
+            $table->foreignId('sexo'); 
+            $table->foreignId('pais_id');
+            $table->string('telefono',20);
             $table->string('cel',20);
-            $table->rememberToken();
+            $table->string('domicilio');
+            $table->foreignId('localidad_id');
+            $table->foreignId('provincia_id',100);
+            $table->string('cod_postal',20);
             $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
-            /* $table->string('us_domicilio');
-            $table->string('us_localidad');
-            $table->string('us_provincia',100);
-            $table->varchar('us_cod_postal',20);
-            $table->varchar('us_telefono',20); */
         });
     }
 

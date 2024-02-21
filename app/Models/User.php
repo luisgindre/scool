@@ -11,8 +11,11 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\EstadoCivil;
 
 class User extends Authenticatable implements HasName
 {
@@ -29,7 +32,9 @@ class User extends Authenticatable implements HasName
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre', // Agregar los campos adicionales
+        'apellido',
+        'user_id',
         'email',
         'password',
     ];
@@ -79,4 +84,20 @@ class User extends Authenticatable implements HasName
     {
         return $this->belongsToMany(Curso::class);
     }
+
+    public function pais(): BelongsTo
+    {
+        return $this->belongsTo(Pais::class);
+    }
+    
+    public function estadoCivil(): BelongsTo
+    {
+        return $this->belongsTo(EstadoCivil::class,'id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->apellido . ', ' . $this->nombre ;
+    }
+
 }

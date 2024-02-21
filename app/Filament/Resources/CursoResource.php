@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CursoResource\Pages;
 use App\Filament\Resources\CursoResource\RelationManagers;
+use App\Models\Asignatura;
 use App\Models\Curso;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,43 +17,66 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Repeater;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
+use Filament\Forms\Set;
+use Illuminate\Support\Str;
+
 
 class CursoResource extends Resource
 {
     protected static ?string $model = Curso::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
+
+    protected static ?string $navigationGroup = 'Administrar';
+
+    protected static ?string $modelLabel = 'Curso';
+
+    protected static ?string $navigationLabel = 'Cursos';
+    
+    protected static ?string $pluralModelLabel = 'Cursos';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('descripcion')
+                Select::make('anio')
                     ->required()
-                    ->maxLength(255),
-                Select::make('asignatura_id')
+                    ->options([
+                        '1' => 'Primero',
+                        '2' => 'Segundo',
+                        '3' => 'Tercero',
+                        '4' => 'Cuarto',
+                        '5' => 'Quinto',
+                        '6' => 'Sexto',
+                    ])
                     ->preload()
-                    ->relationship(name: 'asignatura', titleAttribute: 'nombre'),
-                TextInput::make('anio')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('trimestre')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('horas_catedra')
+                    ->live(),
+                select::make('asignatura_id')
+                    ->options(fn (Get $get): Collection => Asignatura::query()
+                    ->where('anio', $get('anio'))
+                    ->pluck('nombre', 'id'))
+                    ->live()
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                        $slug = Asignatura::query()
+                                    ->where('id', $state)
+                                    ->pluck('nombre');
+                        $set('descripcion',$slug[0].' '.$get('anio') );
+                    }),
+                TextInput::make('turno')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('aula_id')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('plan_de_estudio')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('nivel')
-                    ->required()
-                    ->maxLength(255),
+                TextInput::make('descripcion')
+                ->required()
+                ->maxLength(255)
+                ,
                 
-            ]);
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table

@@ -12,18 +12,39 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
 
 class AsignaturaResource extends Resource
 {
     protected static ?string $model = Asignatura::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+
+    protected static ?string $navigationGroup = 'Administrar';
+
+    protected static ?string $modelLabel = 'Asignatura';
+
+    protected static ?string $navigationLabel = 'Asignaturas';
+    
+    protected static ?string $pluralModelLabel = 'Asignaturas';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nombre')
+                TextInput::make('nombre')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('tipo_ciclo')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('anio')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('ciclo')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('horas')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -34,6 +55,14 @@ class AsignaturaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nombre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('anio')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('ciclo')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('horas')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tipo_ciclo')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

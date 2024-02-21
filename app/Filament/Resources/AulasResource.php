@@ -17,7 +17,15 @@ class AulasResource extends Resource
 {
     protected static ?string $model = Aulas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+
+    protected static ?string $navigationGroup = 'Administrar';
+
+    protected static ?string $modelLabel = 'Aula';
+
+    protected static ?string $navigationLabel = 'Aulas';
+    
+    protected static ?string $pluralModelLabel = 'Aulas';
 
     public static function form(Form $form): Form
     {
@@ -27,7 +35,6 @@ class AulasResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('codigo')
-                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('piso')
                     ->required()
