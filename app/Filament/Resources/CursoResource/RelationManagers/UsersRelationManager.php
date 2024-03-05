@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource;
 
 class UsersRelationManager extends RelationManager
 {
@@ -16,12 +17,7 @@ class UsersRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('apellido')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+        return UserResource::form($form);
     }
 
     public function table(Table $table): Table
@@ -29,7 +25,7 @@ class UsersRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('apellido')
             ->columns([
-                Tables\Columns\TextColumn::make('apellido'),
+                Tables\Columns\TextColumn::make('nombre'),
             ])
             ->filters([
                 //
@@ -45,7 +41,7 @@ class UsersRelationManager extends RelationManager
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

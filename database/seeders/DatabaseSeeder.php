@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             PaisSeeder::class,
             EstadoCivilSeeder::class,
             AsignaturaSeeder::class,
+            CursoSeeder::class,
+            SexoSeeder::class,
+            AulaSeeder::class,
             
         ]);
 

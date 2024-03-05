@@ -27,6 +27,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->passwordReset()
+            ->emailVerification()
+            ->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -51,6 +54,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->brandLogo(asset('/img/logoEtec.png'))
+            ->brandLogoHeight('3rem')
+            ->sidebarCollapsibleOnDesktop()
             ->authMiddleware([
                 Authenticate::class,
             ]);

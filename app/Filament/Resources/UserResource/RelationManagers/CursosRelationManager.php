@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use App\Filament\Resources\CursoResource;
 
 class CursosRelationManager extends RelationManager
 {
@@ -18,41 +19,15 @@ class CursosRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                TextInput::make('descripcion')
-                    ->required()
-                    ->maxLength(255),
-                Select::make('asignatura_id')
-                    ->preload()
-                    ->relationship(name: 'asignatura', titleAttribute: 'nombre'),
-                TextInput::make('anio')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('trimestre')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('horas_catedra')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('aula_id')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('plan_de_estudio')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('nivel')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+        return CursoResource::form($form);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('descripcion')
+            ->recordTitleAttribute('nombre')
             ->columns([
-                Tables\Columns\TextColumn::make('descripcion'),
+                Tables\Columns\TextColumn::make('nombre'),
                 Tables\Columns\TextColumn::make('nivel'),
             ])
             ->filters([

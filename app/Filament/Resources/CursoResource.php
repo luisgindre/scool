@@ -22,6 +22,7 @@ use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Tables\Filters\SelectFilter;
 
 
 class CursoResource extends Resource
@@ -42,19 +43,10 @@ class CursoResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('anio')
-                    ->required()
-                    ->options([
-                        '1' => 'Primero',
-                        '2' => 'Segundo',
-                        '3' => 'Tercero',
-                        '4' => 'Cuarto',
-                        '5' => 'Quinto',
-                        '6' => 'Sexto',
-                    ])
-                    ->preload()
-                    ->live(),
-                select::make('asignatura_id')
+                TextInput::make('nombre')
+                ->required()
+                ->maxLength(255),
+               /*  select::make('asignatura_id')
                     ->options(fn (Get $get): Collection => Asignatura::query()
                     ->where('anio', $get('anio'))
                     ->pluck('nombre', 'id'))
@@ -64,17 +56,17 @@ class CursoResource extends Resource
                                     ->where('id', $state)
                                     ->pluck('nombre');
                         $set('descripcion',$slug[0].' '.$get('anio') );
-                    }),
+                    }), */
+                TextInput::make('anio_vigencia')
+                    ->numeric()
+                    ->required(),
                 TextInput::make('turno')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('aula_id')
+                TextInput::make('nivel')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('descripcion')
-                ->required()
-                ->maxLength(255)
-                ,
+              
                 
             ])->columns(3);
     }
@@ -83,14 +75,13 @@ class CursoResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('descripcion')
+                TextColumn::make('nombre')
                     ->searchable(),
-                TextColumn::make('asignatura.nombre')
+                TextColumn::make('anio_vigencia')
+                    ->label('Año de Vigencia')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('anio')
-                    ->searchable(),
-                TextColumn::make('trimestre')
+                TextColumn::make('nivel')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -102,14 +93,24 @@ class CursoResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('nivel')
+                    ->multiple()
+                    ->options([
+                        '1' => 'Primero',
+                        '2' => 'Segundo',
+                        '3' => 'Tercero',
+                        '4' => 'Tercero',
+                        '5' => 'Tercero',
+                        '6' => 'Tercero',
+                    ])
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

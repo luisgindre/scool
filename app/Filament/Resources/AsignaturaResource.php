@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\SelectFilter;
 
 class AsignaturaResource extends Resource
 {
@@ -74,7 +75,16 @@ class AsignaturaResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('anio')
+                    ->multiple()
+                    ->options([
+                        '1' => 'Primero',
+                        '2' => 'Segundo',
+                        '3' => 'Tercero',
+                        '4' => 'Tercero',
+                        '5' => 'Tercero',
+                        '6' => 'Tercero',
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -90,6 +90,11 @@ class User extends Authenticatable implements HasName
         return $this->belongsTo(Pais::class);
     }
     
+    public function sexo(): BelongsTo
+    {
+        return $this->belongsTo(Sexo::class);
+    }
+    
     public function estadoCivil(): BelongsTo
     {
         return $this->belongsTo(EstadoCivil::class,'id');
@@ -100,4 +105,19 @@ class User extends Authenticatable implements HasName
         return $this->apellido . ', ' . $this->nombre ;
     }
 
+    public function autorizados(): HasMany
+    {
+        return $this->hasMany(Autorizado::class);
+    }
+   
+   
+    public function relacion(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'role_user_user');
+    }
+
+    public function estudiante()
+    {
+        return $this->hasOne(Estudiante::class);
+    }
 }

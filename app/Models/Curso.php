@@ -12,9 +12,9 @@ class Curso extends Model
 {
     use HasFactory;
 
-    public function asignatura(): BelongsTo
+    public function asignaturas(): BelongsToMany
     {
-        return $this->belongsTo(Asignatura::class);
+        return $this->belongsToMany(Asignatura::class);
     }
 
     public function users(): BelongsToMany
