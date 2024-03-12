@@ -127,6 +127,7 @@ class UserResource extends Resource
                                 /* PERSONALES */
                                 Fieldset::make('Datos Personales')
                                     ->schema([
+                                        TextInput::make('id'),
                                         TextInput::make('apellido')
                                             ->required()
                                             ->maxLength(50)
@@ -137,7 +138,7 @@ class UserResource extends Resource
                                             ->columnSpan(2),
                                         TextInput::make('email_inst')
                                             ->email()
-                                            ->required()
+                                            /* ->required() */
                                             ->maxLength(255)
                                             ->columnSpan(2),
                                         Select::make('estado_civil_id')
@@ -157,7 +158,7 @@ class UserResource extends Resource
                                             ->required()
                                             ->maxLength(255)
                                             ->columnSpan(2),
-                                            Select::make('sexo_id')
+                                        Select::make('sexo_id')
                                             ->required()
                                             ->preload()
                                             ->searchable(['nombre'])
@@ -180,14 +181,14 @@ class UserResource extends Resource
                                             ->required()
                                             ->preload()
                                             ->searchable(['nombre'])
-                                            ->relationship(name: 'pais', titleAttribute: 'nombre')
+                                            ->relationship(name: 'provincia', titleAttribute: 'nombre')
                                             ->columnSpan(2),
                                         Select::make('localidad_id')
                                             ->label('Localidad')
                                             ->required()
                                             ->preload()
                                             ->searchable(['nombre'])
-                                            ->relationship(name: 'pais', titleAttribute: 'nombre')
+                                            ->relationship(name: 'localidad', titleAttribute: 'nombre')
                                             ->columnSpan(2),
                                         TextInput::make('cel')
                                             ->mask('')
@@ -282,17 +283,17 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                /* ImageColumn::make('profile_photo_path')
-                    ->circular()
-                    ->defaultImageUrl(asset('/img/user-profile.png')), */
-                TextColumn::make('FullName')
-                    ->searchable(isIndividual: true)
-                    ->label('Apellido y Nombre')
-                    ->placeholder('Sin dato')
-                    ->sortable(),
-                TextColumn::make('legajo')
+                ImageColumn::make('profile_photo_path')
+                    ->label('Avatar')
+                    ->circular(),
+                TextColumn::make('estudiante.legajo')
                     ->searchable(isIndividual: true)
                     ->label('Legajo')
+                    ->sortable(),
+                TextColumn::make('FullName')
+                    ->label('Apellido y Nombre')
+                    ->searchable(['nombre', 'apellido'])
+                    ->placeholder('Sin dato')
                     ->sortable(),
                 TextColumn::make('cuil')
                     ->searchable(),

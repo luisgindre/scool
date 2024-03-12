@@ -90,6 +90,16 @@ class User extends Authenticatable implements HasName
         return $this->belongsTo(Pais::class);
     }
     
+    public function provincia(): BelongsTo
+    {
+        return $this->belongsTo(Provincia::class);
+    }
+   
+    public function localidad(): BelongsTo
+    {
+        return $this->belongsTo(Localidad::class);
+    }
+    
     public function sexo(): BelongsTo
     {
         return $this->belongsTo(Sexo::class);

@@ -27,10 +27,10 @@ return new class extends Migration
             $table->foreignId('sexo_id'); 
             $table->foreignId('pais_id');
             $table->foreignId('provincia_id',100);
-            $table->foreignId('localidad_id');
+            $table->foreignId('localidad_id')->nullable();
             $table->string('domicilio');
             $table->string('cod_postal',20);
-            $table->string('telefono',20);
+            $table->string('telefono',20)->nullable();
             $table->string('cel',20);
             $table->string('turno',50)->nullable();
             $table->string('password');

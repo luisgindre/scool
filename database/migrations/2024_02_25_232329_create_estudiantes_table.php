@@ -17,12 +17,14 @@ return new class extends Migration
             $table->integer('legajo')->unique()->nullable();
             $table->string('libro')->nullable();
             $table->string('folio')->nullable();
-            $table->string('proy_pedagogico')->nullable();
+            $table->string('curso_id')->nullable();
+            $table->foreignId('matriculacion_id')->nullable();
+            $table->foreignId('condicion_id')->nullable();
+            $table->foreignId('carrera_id')->nullable();
+            $table->boolean('proy_pedagogico');
             $table->string('obra_social')->nullable();
             $table->string('plan')->nullable();
             $table->string('asociado_id')->nullable();
-            $table->string('anio_actual')->default('Primero')->nullable();
-            $table->string('estado_matriculacion')->nullable();
             
             $table->timestamps();
         });

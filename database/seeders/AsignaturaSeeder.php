@@ -14,17 +14,18 @@ class AsignaturaSeeder extends Seeder
     public function run(): void
     {
         // Cargar datos estáticos
+        DB::table('asignaturas')->truncate();
         DB::table('asignaturas')->insert([
-            [ 'nombre' => 'Lengua','ciclo' => '1','horas' => 6,'anio' => 1,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua','codigo' => 'LEN1','ciclo' => '1','horas' => 6,'anio' => 1,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Lengua','ciclo' => '1','horas' => 4,'anio' => 2,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Lengua','ciclo' => '2','horas' => 4,'anio' => 3,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Lengua','ciclo' => '2','horas' => 3,'anio' => 4,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Lengua','ciclo' => '2','horas' => 3,'anio' => 5,'tipo_ciclo' => 'General' ],
-            [ 'nombre' => 'Ingles','ciclo' => '1','horas' => 3,'anio' => 1,'tipo_ciclo' => 'General' ],
-            [ 'nombre' => 'Ingles','ciclo' => '1','horas' => 3,'anio' => 2,'tipo_ciclo' => 'General' ],
-            [ 'nombre' => 'Ingles','ciclo' => '2','horas' => 3,'anio' => 3,'tipo_ciclo' => 'General' ],
-            [ 'nombre' => 'Ingles','ciclo' => '2','horas' => 3,'anio' => 4,'tipo_ciclo' => 'General' ],
-            [ 'nombre' => 'Ingles','ciclo' => '2','horas' => 3,'anio' => 5,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua Extranjera Inglés','ciclo' => '1','horas' => 3,'anio' => 1,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua Extranjera Inglés','ciclo' => '1','horas' => 3,'anio' => 2,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua Extranjera Inglés','ciclo' => '2','horas' => 3,'anio' => 3,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua Extranjera Inglés','ciclo' => '2','horas' => 3,'anio' => 4,'tipo_ciclo' => 'General' ],
+            [ 'nombre' => 'Lengua Extranjera Inglés','ciclo' => '2','horas' => 3,'anio' => 5,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Historia','ciclo' => '1','horas' => 3,'anio' => 1,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Historia','ciclo' => '1','horas' => 3,'anio' => 2,'tipo_ciclo' => 'General' ],
             [ 'nombre' => 'Historia','ciclo' => '2','horas' => 3,'anio' => 3,'tipo_ciclo' => 'General' ],

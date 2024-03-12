@@ -23,6 +23,7 @@ use Illuminate\Support\Collection;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Columns\ImageColumn;
 
 
 class CursoResource extends Resource
@@ -77,6 +78,10 @@ class CursoResource extends Resource
             ->columns([
                 TextColumn::make('nombre')
                     ->searchable(),
+                ImageColumn::make('users.profile_photo_path')
+                    ->defaultImageUrl(asset('/img/user-profile.png'))
+                    ->circular()
+                    ->stacked(), 
                 TextColumn::make('anio_vigencia')
                     ->label('Año de Vigencia')
                     ->numeric()

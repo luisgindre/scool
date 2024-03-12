@@ -6,20 +6,19 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class SexoSeeder extends Seeder
+class CondicionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('sexos')->truncate();
-        DB::table('sexos')->insert([
+        DB::table('condiciones')->truncate();
+        DB::table('condiciones')->insert([
 
-        [ 'nombre' => 'Hombre' ],
-        [ 'nombre' => 'Mujer' ],
-        [ 'nombre' => 'Otro' ],
-        
-        ]);
+            [ 'nombre' => 'Regular' ],
+            [ 'nombre' => 'Libre' ],
+            
+            ]);
     }
 }

@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema; 
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -12,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignaturas', function (Blueprint $table) {
+        Schema::create('localidades', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('provincia_id');
             $table->string('nombre');
-            $table->string('codigo');
-            $table->string('ciclo');
-            $table->string('horas');
-            $table->string('anio');
-            $table->string('tipo_ciclo');
+            $table->string('nombre_completo');
+            $table->string('lon');
+            $table->string('lat');
+            $table->string('categoria');
             $table->timestamps();
         });
-
-        
     }
 
     /**
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaturas');
+        Schema::dropIfExists('localidades');
     }
 };

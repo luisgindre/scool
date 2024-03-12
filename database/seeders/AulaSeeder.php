@@ -13,6 +13,7 @@ class AulaSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('aulas')->truncate();
         DB::table('aulas')->insert([
 
             [ 'nombre' => 'Uno', 'codigo' => 'Uno', 'piso' => 'PB' ],
